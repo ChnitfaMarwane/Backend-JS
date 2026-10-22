@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>TP1 - Catalogue de livres</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="app">
+    <h2>{{ nombreFavoris }} livre(s) favori(s)</h2>
+
+    <h1>Catalogue de livres</h1>
+
+    <form @submit.prevent="ajouterLivre">
+      <label>
+        Titre
+        <input type="text" v-model.trim="newBook.title" required />
+      </label>
+      <label>
+        Auteur
+        <input type="text" v-model.lazy="newBook.author" required />
+      </label>
+      <label>
+        Année
+        <input type="number" v-model.number="newBook.year" required />
+      </label>
+      <label>
+        Genre
+        <select v-model="newBook.genre" required>
+          <option disabled value="">Choisir un genre</option>
+          <option>Génie logiciel</option>
+          <option>Algorithmique</option>
+          <option>Littérature</option>
+          <option>Réseaux</option>
+          <option>Développement web</option>
+        </select>
+      </label>
+      <label>
+        Favori
+        <input type="checkbox" v-model="newBook.isFav" />
+      </label>
+      <label>
+        Mot-clé
+        <input
+          type="text"
+          v-model="nouveauMotCle"
+          @keyup.enter="ajouterMotCle"
+        />
+      </label>
+      <div v-if="newBook.keywords.length">
+        <span v-for="keyword in newBook.keywords" :key="keyword" class="chip">
+          {{ keyword }}
+          <button type="button" @click="retirerMotCle(keyword)" aria-label="Retirer le mot-clé">×</button>
+        </span>
+      </div>
+      <button type="submit" :disabled="!formulaireValide">Ajouter le livre</button>
+    </form>
+
+    <button @click="onlyFavorites = !onlyFavorites" style="margin-bottom: 20px;">
+      {{ onlyFavorites ? 'Afficher tous les livres' : 'Afficher uniquement les favoris' }}
+    </button>
+
+    
+    <div 
+      v-for="book in displayedBooks" 
+      :key="book.id" 
+      class="book"
+      :class="{ favori: book.isFav }"
+      @click="toggleFavori(book)"
+    >
+      <h3>
+        {{ book.title }} 
+        <span v-if="book.isFav" class="badge-favori">Favori</span>
+      </h3>
+      <p>{{ book.author }} - {{ book.year }}</p>
+      
+      <button @click.stop="toggleDetails(book)">Details</button>
+      <p v-show="showDetails[book.id]">Genre : {{ book.genre }}</p>
+      <button @click.stop="supprimerLivre(book)">Supprimer</button>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
