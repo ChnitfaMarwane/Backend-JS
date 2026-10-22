@@ -1,0 +1,26 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.filters button.active {
+  background-color: #2457a7;
+  color: #fff;
+}
+
+.task {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin: 0.75rem 0;
+  padding: 1rem;
+}
+
+.task.completed {
+  background-color: #d4edda;
+}

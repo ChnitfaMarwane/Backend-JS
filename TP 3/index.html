@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>TP3 - TaskList</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="app" class="tasks">
+    <p v-if="loading">Chargement des tâches...</p>
+    <p v-else-if="error" role="alert">{{ error }}</p>
+
+    <template v-else>
+      <p>Nombre total de tâches : {{ totalTasks }}</p>
+
+      <nav class="filters" aria-label="Filtrer les tâches">
+        <button
+          type="button"
+          :class="{ active: filter === 'all' }"
+          :aria-pressed="filter === 'all'"
+          @click="filter = 'all'"
+        >Toutes</button>
+        <button
+          type="button"
+          :class="{ active: filter === 'pending' }"
+          :aria-pressed="filter === 'pending'"
+          @click="filter = 'pending'"
+        >À faire</button>
+        <button
+          type="button"
+          :class="{ active: filter === 'completed' }"
+          :aria-pressed="filter === 'completed'"
+          @click="filter = 'completed'"
+        >Terminées</button>
+      </nav>
+
+      <article
+        class="task"
+        :class="{ completed: task.completed }"
+        v-for="task in filteredTasks"
+        :key="task.id"
+      >
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.description }}</p>
+        <p>État : {{ task.completed ? 'Terminée' : 'À faire' }}</p>
+        <button v-show="!task.completed" type="button" @click="completeTask(task)">
+          Marquer comme terminée
+        </button>
+      </article>
+      <p v-if="filteredTasks.length === 0">Aucune tâche à afficher.</p>
+    </template>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
