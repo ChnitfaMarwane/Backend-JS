@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TP 1B - Stock d'une association</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
+        input, select, button { margin: 5px 0; padding: 5px; }
+        .badge-rupture { color: red; font-weight: bold; }
+        .badge-faible { color: orange; font-weight: bold; }
+        .badge-ok { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>TP 1B - Stock d'une association</h2>
+        
+        <div>
+            <input type="text" v-model="rechercheTexte" placeholder="Rechercher...">
+            <select v-model="filtreCategorie">
+                <option value="toutes">Toutes</option>
+                <option value="Fournitures">Fournitures</option>
+                <option value="Buvette">Buvette</option>
+            </select>
+        </div>
+
+        <p>Valeur totale : {{ valeurTotaleStock }} | Articles en rupture : {{ nombreRupture }}</p>
+
+        <ul>
+            <li v-for="article in articlesFiltres" :key="article.id">
+                {{ article.nom }} - Quantité : {{ article.quantite }}
+                <button @click="incrementer(article)">+</button>
+                <button @click="decrementer(article)">-</button>
+
+                <span v-if="article.quantite === 0" class="badge-rupture"> [Rupture]</span>
+                <span v-else-if="article.quantite <= article.seuilAlerte" class="badge-faible"> [Stock faible]</span>
+                <span v-else class="badge-ok"> [Ok]</span>
+
+                <button @click="toggleDetail(article)">Détails</button>
+                <button @click="supprimerArticle(article)">Supprimer</button>
+
+                <div v-show="detailArticleId === article.id">
+                    Prix unitaire : {{ article.prixUnitaire }} | Seuil : {{ article.seuilAlerte }}
+                </div>
+            </li>
+        </ul>
+
+        <form @submit.prevent="ajouterArticle">
+            <input type="text" v-model="nouvelArticle.nom" placeholder="Nom article" required>
+            <input type="number" v-model="nouvelArticle.quantite" placeholder="Quantité">
+            <input type="number" v-model="nouvelArticle.prixUnitaire" placeholder="Prix">
+            <input type="number" v-model="nouvelArticle.seuilAlerte" placeholder="Seuil">
+            <select v-model="nouvelArticle.categorie">
+                <option value="Fournitures">Fournitures</option>
+                <option value="Buvette">Buvette</option>
+            </select>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TP 1C - Tableau de bord de notes</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
+        input, button { margin: 5px 0; padding: 5px; }
+        .rattrapage { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>TP 1C - Tableau de bord de notes</h2>
+        
+        <p>Moyenne Générale : {{ moyenneGenerale }}</p>
+        <p v-if="moyenneGenerale >= 16">Mention : Très bien</p>
+        <p v-else-if="moyenneGenerale >= 14">Mention : Bien</p>
+        <p v-else-if="moyenneGenerale >= 12">Mention : Assez bien</p>
+        <p v-else-if="moyenneGenerale >= 10">Mention : Passable</p>
+        <p v-else>Mention : Insuffisant</p>
+
+        <div v-if="modulesARattraper.length > 0" class="rattrapage">
+            <p>Modules à rattraper : {{ modulesARattraper.length }}</p>
+        </div>
+
+        <div v-if="moduleMax && moduleMin">
+            <p>Meilleur module : {{ moduleMax.nom }} ({{ moduleMax.note }})</p>
+            <p>Moins bon module : {{ moduleMin.nom }} ({{ moduleMin.note }})</p>
+        </div>
+
+        <input type="text" v-model="recherche" placeholder="Chercher un module...">
+        
+        <ul>
+            <li v-for="m in modulesAffiches" :key="m.id">
+                {{ m.nom }} - Note : {{ m.note }} (Coef: {{ m.coefficient }})
+                <button @click="toggleDetail(m)">Détails</button>
+                <button @click="supprimerModule(m)">Supprimer</button>
+                <div v-show="detailModuleId === m.id">
+                    Points apportés : {{ m.note * m.coefficient }}
+                </div>
+            </li>
+        </ul>
+
+        <form @submit.prevent="ajouterModule">
+            <input type="text" v-model="nouveauModule.nom" placeholder="Module" required>
+            <input type="number" step="0.5" v-model="nouveauModule.note" placeholder="Note" required>
+            <input type="number" v-model="nouveauModule.coefficient" placeholder="Coefficient" required>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

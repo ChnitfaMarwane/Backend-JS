@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TP 1A - Budget Étudiant</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
+        input, select, button { margin: 5px 0; padding: 5px; }
+        .active { font-weight: bold; background-color: #eee; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>TP 1A - Budget Étudiant</h2>
+        <div>
+            <label>Budget Mensuel : <input type="number" v-model="budgetMensuel"></label>
+        </div>
+        
+        <p v-if="totalGeneral < (budgetMensuel * 0.8)">État du budget : OK</p>
+        <p v-else-if="totalGeneral <= budgetMensuel">État du budget : Attention, proche de la limite</p>
+        <p v-else>État du budget : Dépassé !</p>
+
+        <div>
+            <button :class="{ active: filtreCategorie === 'toutes' }" @click="selectionnerCategorie('toutes')">Toutes</button>
+            <button :class="{ active: filtreCategorie === 'Alimentation' }" @click="selectionnerCategorie('Alimentation')">Alimentation</button>
+            <button :class="{ active: filtreCategorie === 'Loisirs' }" @click="selectionnerCategorie('Loisirs')">Loisirs</button>
+            <button :class="{ active: filtreCategorie === 'Etudes' }" @click="selectionnerCategorie('Etudes')">Etudes</button>
+        </div>
+
+        <div>
+            <p>Total affiché : {{ totalFiltre }} | Moyenne : {{ moyenneDepense }}</p>
+            <button @click="afficherStats = !afficherStats">Afficher le détail par catégorie</button>
+            <div v-show="afficherStats">
+                <ul>
+                    <li>Alimentation : {{ totalCategorie('Alimentation') }}</li>
+                    <li>Loisirs : {{ totalCategorie('Loisirs') }}</li>
+                    <li>Etudes : {{ totalCategorie('Etudes') }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <ul v-if="depensesFiltrees.length > 0">
+            <li v-for="d in depensesFiltrees" :key="d.id">
+                {{ d.titre }} ({{ d.categorie }}) - {{ d.montant }} MAD
+                <button @click="supprimerDepense(d)">Supprimer</button>
+            </li>
+        </ul>
+        <p v-else>Aucune dépense à afficher.</p>
+
+        <form @submit.prevent="ajouterDepense">
+            <input type="text" v-model="nouvelleDepense.titre" placeholder="Titre" required>
+            <input type="number" v-model="nouvelleDepense.montant" placeholder="Montant" required>
+            <select v-model="nouvelleDepense.categorie">
+                <option value="Alimentation">Alimentation</option>
+                <option value="Loisirs">Loisirs</option>
+                <option value="Etudes">Etudes</option>
+            </select>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
