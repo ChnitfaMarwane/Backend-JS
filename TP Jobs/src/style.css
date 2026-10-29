@@ -1,0 +1,105 @@
+:root {
+  font-family: Arial, sans-serif;
+  color: #26332d;
+  background: #f7f8f6;
+  --green: #376b50;
+  --muted: #6d776f;
+  --border: #e1e6e1;
+}
+
+* { box-sizing: border-box; }
+body { max-width: 900px; margin: 0 auto; padding: 0 18px; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+
+.site-header { border-bottom: 1px solid var(--border); background: #fff; }
+.header-content,
+.job-card-heading,
+.job-card-footer,
+.detail-heading,
+.detail-actions,
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.header-content { min-height: 64px; }
+.brand { font-size: 21px; font-weight: bold; }
+.brand span, .text-link, .back-link { color: var(--green); }
+.page-content { min-height: 85vh; padding: 38px 0 56px; }
+.site-footer { padding: 18px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+
+.intro { margin-bottom: 38px; }
+.eyebrow { color: var(--green); font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+.intro h1, .form-heading h1 { margin-bottom: 8px; }
+.intro-copy, .form-heading > p:last-child, .section-heading p { color: var(--muted); }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.section-heading h2 { margin-bottom: 4px; }
+.section-heading p { margin: 0; font-size: 14px; }
+
+.job-list { display: grid; gap: 12px; }
+.job-card, .detail-card, .job-form {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: #fff;
+}
+.job-card:hover { border-color: #b7c9bc; }
+.job-card h2 { margin: 14px 0 5px; font-size: 19px; }
+.job-card h2 a:hover, .text-link:hover, .back-link:hover { text-decoration: underline; }
+.job-date, .company { color: var(--muted); font-size: 14px; }
+.company { margin-bottom: 0; }
+.job-summary, .description p { color: #505b54; line-height: 1.6; }
+.contract-tag { padding: 4px 9px; border-radius: 4px; color: var(--green); background: #edf4ee; font-size: 13px; }
+.job-card-footer { padding-top: 12px; border-top: 1px solid #edf0ed; font-size: 14px; }
+
+.button, .filter-button {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+.button-primary, .filter-button.active { border-color: var(--green); color: #fff; background: var(--green); }
+.button-danger { color: #a13e37; }
+.button:hover, .filter-button:hover { filter: brightness(.96); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.filter-button { color: #48554c; }
+.text-link { font-weight: bold; }
+
+.search-field input, .form-field input, .form-field select, .form-field textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+}
+.search-field input { width: 210px; }
+.form-field input, .form-field select { min-height: 40px; }
+.search-field input:focus, .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+  outline: 2px solid #b7cdbd;
+  border-color: var(--green);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-field { display: grid; gap: 6px; }
+.form-field-wide { grid-column: 1 / -1; }
+.form-actions { justify-content: flex-end; margin-top: 18px; }
+.form-error { color: #a13e37; }
+.detail-page, .form-page { max-width: 760px; margin: 0 auto; }
+.back-link { display: inline-block; margin-bottom: 18px; }
+.job-facts { display: flex; flex-wrap: wrap; gap: 28px; padding: 16px 0; border-block: 1px solid var(--border); }
+.job-facts div { display: grid; gap: 6px; }
+.job-facts dt { color: var(--muted); font-size: 14px; }
+.job-facts dd { margin: 0; }
+.empty-state { padding: 36px 16px; border: 1px dashed var(--border); text-align: center; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+
+@media (max-width: 600px) {
+  .page-content { padding-top: 28px; }
+  .section-heading { align-items: stretch; flex-direction: column; }
+  .search-field input { width: 100%; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-field-wide { grid-column: auto; }
+  .detail-heading, .form-actions { align-items: stretch; flex-direction: column; }
+}

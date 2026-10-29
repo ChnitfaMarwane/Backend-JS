@@ -1,0 +1,48 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 640px;
+  margin: 40px auto;
+  color: #1b2430;
+}
+
+nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #dde1d9;
+}
+
+nav a { color: #2f8f66; text-decoration: none; font-weight: 600; }
+nav a.router-link-active { text-decoration: underline; }
+
+.loading { color: #5b6572; font-style: italic; }
+
+.book {
+  border: 1px solid #dde1d9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.favori { border-color: #caa53d; background: #fbf6e6; }
+
+.badge-favori {
+  display: inline-block;
+  background: #caa53d;
+  color: white;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+}
+
+form {
+  border: 1px solid #dde1d9;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
