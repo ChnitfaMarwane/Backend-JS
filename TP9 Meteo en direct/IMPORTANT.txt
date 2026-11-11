@@ -1,0 +1,9 @@
+
+ne pas pousser le dossier node_modules sur GitHub
+1.créez un fichier .gitignore
+2.contenu (
+node_modules
+dist
+.env
+.DS_Store
+)
