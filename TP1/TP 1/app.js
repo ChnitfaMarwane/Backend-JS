@@ -3,7 +3,7 @@
 const app = Vue.createApp({
   data() {
     return {
-      // TODO 2 : Tableau issu de books.json[cite: 1, 5]
+      // TODO 2 : Tableau issu de books.json
       books: [
           {
             "id": 1,
@@ -55,20 +55,20 @@ const app = Vue.createApp({
           }
         ],
 
-      // utilisé au TODO 5 pour savoir, livre par livre, si on affiche les détails[cite: 1]
+      // utilisé au TODO 5 pour savoir, livre par livre, si on affiche les détails
       showDetails: {},
       
-      // État ajouté pour l'Étape 6[cite: 6]
+      // État ajouté pour l'Étape 6
       onlyFavorites: false 
     };
   },
   computed: {
-    // TODO 8 (Étape 5) : Retourne le nombre de livres favoris[cite: 1, 6]
+    // TODO 8 (Étape 5) : Retourne le nombre de livres favoris
     nombreFavoris() {
       return this.books.filter(book => book.isFav).length;
     },
 
-    // TODO 10 (Bonus) : Version triée (du plus récent au plus ancien) avec une copie de l'état[cite: 1, 6]
+    // TODO 10 (Bonus) : Version triée (du plus récent au plus ancien) avec une copie de l'état
     booksTriesParAnnee() {
       return [...this.books].sort((a, b) => b.year - a.year);
     },
